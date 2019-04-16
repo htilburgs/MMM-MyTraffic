@@ -23,10 +23,10 @@ Add the module to your modules array in your config.js.
   position: 'top_left',
   header: 'My Traffic Information',
   config: {
-  	   showJams: true,			// Show Traffic jams
-	   showConstructions: true,		// Show Constructions
-	   showRadars: true,			// Show Speed Traps (Radar Controls)
-	   preferredRoads: ['ALL']		// Show All roads or show you're selection -> ['A1','A50','A67']
+  	   showJams: true,		// Show Traffic jams
+	   showConstructions: true,	// Show Constructions
+	   showRadars: true,		// Show Speed Traps (Radar Controls)
+	   preferredRoads: ['ALL']	// Show All roads or show you're selection -> ['A1','A50','A67']
 	  }
 },
 ```
