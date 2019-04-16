@@ -1,0 +1,56 @@
+.wrapper {}
+
+.trafficicon-jam {
+	background-image: url(icons/trafficjam.png);
+	background-repeat: no-repeat;
+	display: block;
+	width: 256px;
+	height: 256px;
+  	background-color: yellow;
+}
+
+.trafficicon-camera {
+	background-image: url(icons/camera.png);
+	background-repeat: no-repeat;
+	display: block;
+	width: 256px;
+	height: 256px;
+  	background-color: red;
+}
+
+.trafficicon-construction {
+	background-image: url(icons/cone.png);
+	background-repeat: no-repeat;
+	display: block;
+	width: 256px;
+	height: 256px;
+  	background-color: orange;
+}
+
+.small-icon {
+	float: left;
+	position: absolute;
+	zoom: .18;
+	-moz-transform: scale(.18);
+	/* Firefox */
+	-moz-transform-origin: 0 0;
+}
+
+.description {
+	font-family: Roboto;
+	margin-left: 10px;
+	color: white;
+	padding-left: 50px;
+	padding-top: 3px;
+	color: #fff;
+	width: auto;
+	line-height: 20px;
+	text-align: left;
+}
+
+hr {
+	height: 1px;
+    	color: dimgray;
+    	background-color: dimgray;
+    	border: none;
+}
