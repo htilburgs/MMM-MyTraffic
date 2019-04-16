@@ -118,12 +118,12 @@ Module.register('MMM-MyTraffic', {
 			var icon = document.createElement("div");
 			icon.classList.add('trafficicon-camera', 'small-icon');
 			var event = document.createElement("div");
-			event.className = "description xsmall";
+			event.className = "event xsmall";
 			var information = document.createElement("div");
-			information.className = "information bold"
+			information.className = "bold"
 			information.innerHTML = radars[i].radar.location;
 			var description = document.createElement("div");
-			description.className.add = "duration xsmall";
+			description.className.add = "description xsmall";
 			description.innerHTML = radars[i].radar.description;
 			var horLine = document.createElement("hr");
 			event.appendChild(information);
@@ -142,12 +142,12 @@ Module.register('MMM-MyTraffic', {
 			var icon = document.createElement("div");
 			icon.classList.add('trafficicon-construction', 'small-icon');
 			var event = document.createElement("div");
-			event.className = "description xsmall";
+			event.className = "event xsmall";
 			var information = document.createElement("div");
-			information.className = "information bold"
+			information.className = "bold"
 			information.innerHTML = constructions[i].name + " - " + constructions[i].construction.startDate + " t/m " + constructions[i].construction.stopDate;
 			var description = document.createElement("div");
-			description.className.add = "duration xsmall";
+			description.className.add = "description xsmall";
 			description.innerHTML = constructions[i].construction.description;
 			var horLine = document.createElement("hr");
 			event.appendChild(information);
