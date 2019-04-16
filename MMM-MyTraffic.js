@@ -90,16 +90,16 @@ Module.register('MMM-MyTraffic', {
 			var icon = document.createElement("div");
 			icon.classList.add('trafficicon-jam', 'small-icon');
 			var event = document.createElement("div");
-			event.className = "description xsmall";
+			event.className = "event xsmall";
 			var information = document.createElement("div");
-			information.className = "information bold"
+			information.className = "bold"
 			if (typeof jams[i].jam.startDate !== "undefined") {
 				information.innerHTML = jams[i].name + " - " + jams[i].jam.startDate + " - " + (jams[i].jam.distance/1000) + "KM";
 				} else {
 				information.innerHTML = jams[i].name;
 				}
 			var description = document.createElement("div");
-			description.className.add = "duration xsmall";
+			description.className.add = "description xsmall";
 			description.innerHTML = jams[i].jam.description;
 			var horLine = document.createElement("hr");
 			event.appendChild(information);
