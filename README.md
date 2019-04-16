@@ -9,8 +9,6 @@ Clone this repository in your modules folder, and install dependencies:
 ```
 cd ~/MagicMirror/modules 
 git clone https://github.com/htilburgs/MMM-MyTraffic
-cd MMM-MyTravvic
-npm install 
 ```
 
 ## Configuration
