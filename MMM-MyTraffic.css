@@ -15,8 +15,8 @@ Pick your color, copy and paste the HEX number. Example - #62FF00 = bright green
 	background-image: url(icons/trafficjam.png);
 	background-repeat: no-repeat;
 	display: block;
-	width: 256px;
-	height: 256px;
+	width: 250px;
+	height: 250px;
   	background-color: yellow;
 }
 
@@ -24,8 +24,8 @@ Pick your color, copy and paste the HEX number. Example - #62FF00 = bright green
 	background-image: url(icons/camera.png);
 	background-repeat: no-repeat;
 	display: block;
-	width: 256px;
-	height: 256px;
+	width: 250px;
+	height: 250px;
   	background-color: red;
 }
 
@@ -33,26 +33,24 @@ Pick your color, copy and paste the HEX number. Example - #62FF00 = bright green
 	background-image: url(icons/cone.png);
 	background-repeat: no-repeat;
 	display: block;
-	width: 256px;
-	height: 256px;
+	width: 250px;
+	height: 250px;
   	background-color: orange;
 }
 
 .small-icon {
 	float: left;
 	position: absolute;
-	zoom: .18;
-	-moz-transform: scale(.18);
+	zoom: .14;
+	-moz-transform: scale(.14);
 	/* Firefox */
 	-moz-transform-origin: 0 0;
 }
 
 .description {
-	font-family: Roboto;
 	margin-left: 10px;
 	color: white;
 	padding-left: 50px;
-	padding-top: 3px;
 	color: #fff;
 	width: auto;
 	line-height: 20px;
@@ -60,11 +58,9 @@ Pick your color, copy and paste the HEX number. Example - #62FF00 = bright green
 }
 
 .event {
-	font-family: Roboto;
 	margin-left: 10px;
 	color: white;
 	padding-left: 50px;
-	padding-top: 3px;
 	color: #fff;
 	width: auto;
 	line-height: 20px;
@@ -76,4 +72,6 @@ hr {
     	color: dimgray;
     	background-color: dimgray;
     	border: none;
+	margin-block-start: 0.2em;
+	margin-block-end: 0.2em;
 }
