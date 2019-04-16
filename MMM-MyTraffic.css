@@ -1,3 +1,14 @@
+/*
+//-------------------------------------------
+MMM-MyTraffic - CSS
+Copyright (C) 2019 - H. Tilburgs
+MIT License
+//-------------------------------------------
+The functions are annotated to make things as easy as possible for you.
+Use any colors you want! Go to - "http://htmlcolorcodes.com/color-picker/"
+Pick your color, copy and paste the HEX number. Example - #62FF00 = bright green.
+*/
+
 .wrapper {}
 
 .trafficicon-jam {
@@ -59,6 +70,7 @@
 	line-height: 20px;
 	text-align: left;
 }
+
 hr {
 	height: 1px;
     	color: dimgray;
