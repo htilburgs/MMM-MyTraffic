@@ -52,7 +52,6 @@ Module.register('MMM-MyTraffic', {
 		requiresVersion: "2.1.0",	
 			
 		// Set locales
-		this.url = "https://www.anwb.nl/feeds/gethf"
 		this.MTR = [];				// <-- Create empty MyTraffic array
 		this.scheduleUpdate();     	// <-- When the module updates (see below)
 	},
@@ -86,14 +85,22 @@ Module.register('MMM-MyTraffic', {
 				event.className = "event xsmall";
 				var information = document.createElement("div");
 				information.className = "bold"
-				if (typeof j.jam.startDate !== "undefined") {
-					information.innerHTML = j.name + " - " + j.jam.startDate + " - " + (j.jam.distance/1000) + "KM";
-					} else {
-					information.innerHTML = j.name;
-					}
+				if (typeof j.road!== undefined) {
+					information.innerHTML = j.name +  ": " + j.start + " - " + j.end;
+					} 
 				var description = document.createElement("div");
 				description.className.add = "description xsmall";
-				description.innerHTML = j.jam.description;
+				
+				if(j.jam.reason && !isNaN(j.jam.distance)) {
+					description.innerHTML = j.jam.from + " t/m " + j.jam.to + ". " + j.jam.reason + " " + (j.jam.distance/1000) + "KM";
+				} else if (j.jam.reason && isNaN(j.jam.distance)) {
+					description.innerHTML = j.jam.from + " t/m " + j.jam.to + ". " + j.jam.reason;
+				} else if (j.jam.reason === undefined && !isNaN(j.jam.distance)) {
+					description.innerHTML = j.jam.from + " t/m " + j.jam.to + ". " + j.jam.events[0].text + ". " + (j.jam.distance/1000) + "KM";
+				} else {
+					description.innerHTML = j.jam.from + " t/m " + j.jam.to + ". " + j.jam.events[0].text;
+				}
+				
 				var horLine = document.createElement("hr");
 				event.appendChild(information);
 				event.appendChild(description);
@@ -103,31 +110,6 @@ Module.register('MMM-MyTraffic', {
 				wrapper.appendChild(horLine); 
 			  }
 		  }
-
-			//Display Traffic Camera (Radar) information
-			if (this.config.showRadars != false) {		
-			for (var r of this.radars) {
-
-				var warnWrapper = document.createElement("div");
-				var icon = document.createElement("div");
-				icon.classList.add('trafficicon-camera', 'small-icon');
-				var event = document.createElement("div");
-				event.className = "event xsmall";
-				var information = document.createElement("div");
-				information.className = "bold"
-				information.innerHTML = r.radar.location;
-				var description = document.createElement("div");
-				description.className.add = "description xsmall";
-				description.innerHTML = r.radar.description;
-				var horLine = document.createElement("hr");
-				event.appendChild(information);
-				event.appendChild(description);
-				warnWrapper.appendChild(icon);
-				warnWrapper.appendChild(event);
-				wrapper.appendChild(warnWrapper);
-				wrapper.appendChild(horLine); 
-				}
-			}
 
 			//Display Traffic Constructions information
 			if (this.config.showConstructions != false) {		
@@ -139,10 +121,15 @@ Module.register('MMM-MyTraffic', {
 				event.className = "event xsmall";
 				var information = document.createElement("div");
 				information.className = "bold"
-				information.innerHTML = c.name + " - " + c.construction.startDate + " t/m " + c.construction.stopDate;
+				information.innerHTML = c.name + ": " + c.start + " - " + c.end;
 				var description = document.createElement("div");
 				description.className.add = "description xsmall";
-				description.innerHTML = c.construction.description;
+				if(c.roadwork.from !== c.roadwork.to) {
+					description.innerHTML = c.roadwork.from + " t/m " + c.roadwork.to + ": " + c.roadwork.reason;
+				}
+				else {
+					description.innerHTML = c.roadwork.from + ": " + c.roadwork.reason;
+				}
 				var horLine = document.createElement("hr");
 				event.appendChild(information);
 				event.appendChild(description);
@@ -160,16 +147,21 @@ Module.register('MMM-MyTraffic', {
 			for (var j of this.jams) {		
 				var jamsInformation = document.createElement("div");
 				jamsInformation.className = "jamsInformation xsmall bold";
-				if (typeof j.jam.startDate !== 'undefined' && j.jam.distance !== 'NaN') {
-					jamsInformation.innerHTML = '<i class="tr-traffic-jam"></i> ' + j.name + " - " + j.jam.startDate + " - " + (j.jam.distance/1000) + "KM";
-				} else {
-					jamsInformation.innerHTML = '<i class="tr-traffic-jam"></i> ' + j.name;
-				}
+				jamsInformation.innerHTML = '<i class="tr-traffic-jam"></i> ' + j.name + " : " + j.start + " - " + j.end;
 				wrapper.appendChild(jamsInformation);
 				
 				var jamsDescription = document.createElement("div");
 				jamsDescription.className = "jamsDescription xsmall";
-				jamsDescription.innerHTML = j.jam.description;
+			
+				if(j.jam.reason && !isNaN(j.jam.distance)) {
+					jamsDescription.innerHTML = j.jam.from + " t/m " + j.jam.to + ". " + j.jam.reason + " " + (j.jam.distance/1000) + "KM";
+				} else if (j.jam.reason && isNaN(j.jam.distance)) {
+					jamsDescription.innerHTML = j.jam.from + " t/m " + j.jam.to + ". " + j.jam.reason;
+				} else if (j.jam.reason === undefined && !isNaN(j.jam.distance)) {
+					jamsDescription.innerHTML = j.jam.from + " t/m " + j.jam.to + ". " + j.jam.events[0].text + ". " + (j.jam.distance/1000) + "KM";
+				} else {
+					jamsDescription.innerHTML = j.jam.from + " t/m " + j.jam.to + ". " + j.jam.events[0].text;
+				}
 				wrapper.appendChild(jamsDescription);
 		   		}
 			}
@@ -178,8 +170,8 @@ Module.register('MMM-MyTraffic', {
 			if (this.config.showRadars != false) {		
 			   for (var r of this.radars) {	
 				var radarInformation = document.createElement("div");
-				radarInformation.className = "radarInformation xsmall bold";
-				radarInformation.innerHTML = '<i class="tr-traffic-camera"></i> ' + r.name + " - " + r.radar.description;
+				radarInformation.className = "radarInformation xsmall bold"
+				radarInformation.innerHTML = '<i class="tr-traffic-camera"></i> ' + r.name + ": " + r.start + " - " + r.end + ". " + r.radar.reason;
 				wrapper.appendChild(radarInformation);
 			   }
 			}
@@ -189,12 +181,17 @@ Module.register('MMM-MyTraffic', {
 			   for (var c of this.constructions) {			
 				var consInformation = document.createElement("div");
 				consInformation.className = "consInformation xsmall bold";
-				consInformation.innerHTML = '<i class="tr-traffic-cone"></i> ' + c.name + " - " + c.construction.startDate + " t/m " + c.construction.stopDate;
+				consInformation.innerHTML = '<i class="tr-traffic-cone"></i> ' + c.name + ": " + c.start + " - " + c.end;
 				wrapper.appendChild(consInformation);
-
 				var consDescription = document.createElement("div");
 				consDescription.className = "consDescription xsmall";
-				consDescription.innerHTML = c.construction.description;
+				
+				if(c.roadwork.from !== c.roadwork.to) {
+					consDescription.innerHTML = c.roadwork.from + " t/m " + c.roadwork.to + ": " + c.roadwork.reason;
+				}
+				else {
+					consDescription.innerHTML = c.roadwork.from + ": " + c.roadwork.reason;
+				}
 				wrapper.appendChild(consDescription);
 			   }
 			}
@@ -207,6 +204,8 @@ Module.register('MMM-MyTraffic', {
 	// this processes your data
 	processTRAFFIC: function (data) { 
 		this.MTR = data; 
+		//console.log(this.MTR); // uncomment to see if you're getting data (in dev console)
+
     		this.jams=[]
     		this.constructions=[]
     		this.radars=[]
@@ -215,27 +214,30 @@ Module.register('MMM-MyTraffic', {
 		var pRoads = this.config.preferredRoads;
 		this.pRoads = pRoads.map(function(x){ return x.toUpperCase() })
     		
-		for (var road of this.MTR.roadEntries){
-//     			Log.log(" typeof="+typeof this.pRoads)		// uncomment to see if you're getting data (in dev console)
-      			if(this.pRoads.includes(road.road) || this.pRoads.includes("ALL")) 
-      			{
-			
-        		for (var j1 of road.events.trafficJams){  
-//            		Log.log("pushing entry for road="+ road.road)	// uncomment to see if you're getting data (in dev console)
-            		this.jams.push({name: road.road, jam:j1})
-          		}
-			
-        		for (var construction of road.events.roadWorks){
-          		this.constructions.push({name: road.road,construction:construction})
-        		}
-			
-        		for (var radar of road.events.radars){
-          		this.radars.push({name: road.road,radar:radar})
-        		}
+		for (var road of this.MTR.roads){
+			if(this.pRoads.includes(road.road) || this.pRoads.includes("ALL")) {
+				for(var segment of road.segments) {
+					// Log.log(segment)		// uncomment to see if you're getting data (in dev console)
+					if(segment.jams) {
+						for(var jam of segment.jams) {
+							console.log(jam)
+							this.jams.push({name: road.road, start: segment.start, end: segment.end, jam:jam})
+						}
+					 }
+					if(segment.roadworks) {
+						for(var roadwork of segment.roadworks) {
+							this.constructions.push({name: road.road, start: segment.start, end: segment.end, roadwork:roadwork})
+						}
+					}
+					if(segment.radars) {
+						for(var radar of segment.radars) {
+							this.radars.push({name: road.road, start: segment.start, end: segment.end, radar:radar})
+						}
+					}
+				}
+			}
 		}
-	}
 		
-//		console.log(this.MTR); // uncomment to see if you're getting data (in dev console)
 		this.loaded = true;
 	},
 	
