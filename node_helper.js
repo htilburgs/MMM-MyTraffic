@@ -16,14 +16,11 @@ module.exports = NodeHelper.create({
   },
 
   getTRAFFIC: function(url) {
-	request({
-	url: url,
-	method: 'GET'
-	}, (error, response, body) => {
+	request('https://api.anwb.nl/v1/incidents?apikey=QYUEE3fEcFD7SGMJ6E7QBCMzdQGqRkAi', { gzip: true }, (error, response, body) => {
 	if (!error && response.statusCode == 200) {
-	var result = JSON.parse(body);							// JSON data path	
-	//console.log(response.statusCode + result);			// Uncomment to see in terminal for test purposes
-	this.sendSocketNotification('MYTRAFFIC_RESULT', result);
+	  var result = JSON.parse(body);							// JSON data path	
+	  //console.log(response.statusCode + body);			// Uncomment to see in terminal for test purposes
+	  this.sendSocketNotification('MYTRAFFIC_RESULT', result);
 	}
         });
     },
