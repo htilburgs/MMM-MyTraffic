@@ -16,14 +16,25 @@ module.exports = NodeHelper.create({
   },
 
   getTRAFFIC: function(url) {
-	request('https://api.anwb.nl/v2/incidents?apikey=QYUEE3fEcFD7SGMJ6E7QBCMzdQGqRkAi', { gzip: true }, (error, response, body) => {
-	if (!error && response.statusCode == 200) {
-	  var result = JSON.parse(body);							// JSON data path	
-	  //console.log(response.statusCode + body);			// Uncomment to see in terminal for test purposes
-	  this.sendSocketNotification('MYTRAFFIC_RESULT', result);
-	}
-        });
-    },
+        // Make a GET request using the Fetch API
+        fetch('https://api.anwb.nl/v2/incidents?apikey=QYUEE3fEcFD7SGMJ6E7QBCMzdQGqRkAi')
+          .then(response => {
+            if (!response.ok) {
+              console.error('MMM-MyTraffic Network response was not ok');
+            }
+            return response.json();
+          })
+
+          .then(result => {
+            // Process the retrieved user data
+            console.log(response.statusCode + body); // Remove trailing slashes to display data in Console for testing
+            this.sendSocketNotification('MYTRAFFIC_RESULT', result);
+          })
+
+          .catch(error => {
+            console.error('Error:', error);
+          });
+  },
 
   socketNotificationReceived: function(notification, payload) {
             if (notification === 'GET_MYTRAFFIC') {
