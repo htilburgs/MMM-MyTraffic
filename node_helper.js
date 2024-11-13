@@ -26,7 +26,7 @@ module.exports = NodeHelper.create({
 
           .then(result => {
             // Process the retrieved user data
-            console.log(response.statusCode + body); // Remove trailing slashes to display data in Console for testing
+            console.log(response); // Remove trailing slashes to display data in Console for testing
             this.sendSocketNotification('MYTRAFFIC_RESULT', result);
           })
 
