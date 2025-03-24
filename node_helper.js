@@ -7,7 +7,6 @@ MIT License
 */
 
 const NodeHelper = require('node_helper');
-const request = require('request');
 
 module.exports = NodeHelper.create({
 
@@ -15,7 +14,7 @@ module.exports = NodeHelper.create({
           console.log("Starting node_helper for: " + this.name);
   },
 
-async getTraffic(url) {
+async getTRAFFIC(url) {
     try {
       // Maak een GET-aanroep naar de opgegeven URL
       const response = await fetch('https://api.anwb.nl/v2/incidents?apikey=QYUEE3fEcFD7SGMJ6E7QBCMzdQGqRkAi', { gzip: true, mode: 'no-cors' });
