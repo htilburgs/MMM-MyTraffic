@@ -18,7 +18,7 @@ module.exports = NodeHelper.create({
 async getTraffic(url) {
     try {
       // Maak een GET-aanroep naar de opgegeven URL
-      const response = await fetch(https://api.anwb.nl/v2/incidents?apikey=QYUEE3fEcFD7SGMJ6E7QBCMzdQGqRkAi', { gzip: true, mode: 'no-cors' });
+      const response = await fetch('https://api.anwb.nl/v2/incidents?apikey=QYUEE3fEcFD7SGMJ6E7QBCMzdQGqRkAi', { gzip: true, mode: 'no-cors' });
 
       if (!response.ok) {
         throw new Error(
@@ -31,7 +31,7 @@ async getTraffic(url) {
       // Stuur de ontvangen gegevens naar de module
       this.sendSocketNotification("MYTRAFFIC_RESULT", result);
     } catch (error) {
-      console.error(`MMM-MyDutchWeather Error: ${error.message}`);
+      console.error(`MMM-MyTraffic Error: ${error.message}`);
     }
   },
 				   
